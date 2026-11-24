@@ -153,7 +153,7 @@
        ========================================================================== */
     .hero-section {
       width: 100%;
-      max-width: 660px;
+      max-width: 680px;
       margin: auto 0;
       display: flex;
       flex-direction: column;
@@ -238,7 +238,7 @@
       align-items: center;
       gap: 1.25rem;
       width: 100%;
-      max-width: 520px;
+      max-width: 540px;
       margin: 0 auto;
       position: relative;
       z-index: 30;
@@ -296,7 +296,9 @@
       box-shadow: 0 0 16px rgba(37, 211, 102, 0.25);
     }
 
-    /* Single-Row Input + Contact on WhatsApp Button */
+    /* ==========================================================================
+       MARQUEE MESSAGE PILL + CONTACT ON WHATSAPP BUTTON ROW
+       ========================================================================== */
     .action-input-row {
       width: 100%;
       display: flex;
@@ -305,28 +307,64 @@
       position: relative;
     }
 
-    .input-message-pill {
+    /* The Marquee Message Pill */
+    .marquee-message-pill {
       flex: 1;
+      height: 48px;
       background: rgba(10, 10, 15, 0.65);
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 999px;
-      padding: 0.95rem 1.35rem;
-      color: #ffffff;
+      padding: 0 1.2rem;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+      transition: border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .marquee-message-pill:hover {
+      border-color: rgba(37, 211, 102, 0.4);
+      background: rgba(10, 10, 15, 0.85);
+    }
+
+    /* Animated Marquee Track */
+    .marquee-track {
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      animation: marqueeScroll 18s linear infinite;
+      will-change: transform;
+    }
+
+    .marquee-message-pill:hover .marquee-track {
+      animation-play-state: paused;
+    }
+
+    .marquee-msg-text {
       font-family: var(--font-main);
       font-size: 0.92rem;
-      outline: none;
-      transition: all 0.25s ease;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+      color: #f4f4f5;
+      letter-spacing: 0.2px;
     }
 
-    .input-message-pill::placeholder {
-      color: #71717a;
+    .marquee-bullet {
+      color: #25d366;
+      margin: 0 1.5rem;
+      font-size: 0.85rem;
+      display: inline-block;
     }
 
-    .input-message-pill:focus {
-      border-color: rgba(37, 211, 102, 0.5);
-      background: rgba(10, 10, 15, 0.9);
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6), 0 0 20px rgba(37, 211, 102, 0.25);
+    @keyframes marqueeScroll {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
     }
 
     /* Prominent "Contact on WhatsApp" Button */
@@ -337,7 +375,8 @@
       border: none;
       outline: none;
       border-radius: 999px;
-      padding: 0.95rem 1.8rem;
+      height: 48px;
+      padding: 0 1.8rem;
       font-family: var(--font-main);
       font-size: 0.95rem;
       font-weight: 700;
@@ -353,6 +392,7 @@
       z-index: 50;
       user-select: none;
       will-change: transform;
+      flex-shrink: 0;
     }
 
     .btn-contact-whatsapp:hover {
@@ -478,7 +518,7 @@
         flex-direction: column;
         width: 100%;
       }
-      .input-message-pill {
+      .marquee-message-pill {
         width: 100%;
       }
       .btn-contact-whatsapp {
@@ -560,7 +600,7 @@
             <button 
               type="button" 
               class="service-btn" 
-              data-category="Film & Cinema"
+              data-category="Cinema"
               data-msg="Hello Theki Productions! I want to collaborate on a Cinematic Short Film / Documentary project."
             >
               <span>🎞️</span> <span>Cinema</span>
@@ -569,23 +609,25 @@
             <button 
               type="button" 
               class="service-btn" 
-              data-category="Custom Project"
+              data-category="Custom"
               data-msg="Hello Theki Productions! I have a custom creative project in mind and would love to consult with your team."
             >
               <span>✨</span> <span>Custom</span>
             </button>
           </div>
 
-          <!-- Input + Contact on WhatsApp Action Row -->
+          <!-- Action Row: Marquee Message Pill + Contact on WhatsApp Button -->
           <div class="action-input-row">
-            <input 
-              type="text" 
-              class="input-message-pill" 
-              id="message-input" 
-              value="Hello Theki Productions! I would like to book a Commercial Video production for my brand. Please share packages and dates." 
-              placeholder="Type your WhatsApp message..." 
-              aria-label="Personalized WhatsApp Message"
-            >
+            
+            <!-- Marquee Message Pill Displaying the Personalized Message in Smooth Continuous Motion -->
+            <div class="marquee-message-pill" id="marquee-pill" title="Hover to pause marquee">
+              <div class="marquee-track" id="marquee-track">
+                <span class="marquee-msg-text" id="marquee-text">Hello Theki Productions! I would like to book a Commercial Video production for my brand. Please share packages and dates.</span>
+                <span class="marquee-bullet">✦</span>
+                <span class="marquee-msg-text" id="marquee-text-clone">Hello Theki Productions! I would like to book a Commercial Video production for my brand. Please share packages and dates.</span>
+                <span class="marquee-bullet">✦</span>
+              </div>
+            </div>
             
             <!-- Contact on WhatsApp Button -->
             <a 
@@ -634,8 +676,8 @@
 
   <!-- ==========================================================================
        VANILLA JAVASCRIPT:
-       1. Dynamic Realtime WhatsApp Link Generation
-       2. Service Button Personalization & Direct Triggers
+       1. Dynamic Marquee Realtime WhatsApp Synchronization
+       2. Service Buttons with Tailored Messages
        3. Mo.js Particle Burst on Contact on WhatsApp Click
        4. GSAP Parallax and Entrances
        5. 3D Glowing Amber Ribbons Canvas
@@ -646,16 +688,21 @@
       'use strict';
 
       const PHONE_NUMBER = '9779769407270';
-      const messageInput = document.getElementById('message-input');
+      const marqueeText = document.getElementById('marquee-text');
+      const marqueeClone = document.getElementById('marquee-text-clone');
+      const marqueeTrack = document.getElementById('marquee-track');
+      const marqueePill = document.getElementById('marquee-pill');
       const contactBtn = document.getElementById('btn-contact-whatsapp');
       const serviceButtons = document.querySelectorAll('.service-btn');
       const activeProjectLabel = document.getElementById('active-project-label');
+
+      let currentActiveMessage = "Hello Theki Productions! I would like to book a Commercial Video production for my brand. Please share packages and dates.";
 
       /* ----------------------------------------------------------------------
          1. DYNAMIC WHATSAPP LINK BUILDER
          ---------------------------------------------------------------------- */
       function buildWhatsAppUrl(text) {
-        const message = text || messageInput.value.trim() || 'Hello Theki Productions, I would like to book a production session!';
+        const message = text || currentActiveMessage;
         return 'https://api.whatsapp.com/send?phone=' + PHONE_NUMBER + '&text=' + encodeURIComponent(message);
       }
 
@@ -663,7 +710,26 @@
         contactBtn.href = buildWhatsAppUrl();
       }
 
-      messageInput.addEventListener('input', syncButtonHref);
+      function updateMarqueeMessage(newMsg) {
+        currentActiveMessage = newMsg;
+        marqueeText.textContent = newMsg;
+        marqueeClone.textContent = newMsg;
+        syncButtonHref();
+
+        // Restart smooth animation
+        marqueeTrack.style.animation = 'none';
+        marqueeTrack.offsetHeight; // trigger reflow
+        marqueeTrack.style.animation = 'marqueeScroll 18s linear infinite';
+
+        if (window.gsap) {
+          try {
+            gsap.fromTo(marqueePill, 
+              { opacity: 0.6, scale: 0.98 }, 
+              { opacity: 1, scale: 1, duration: 0.35, ease: 'power2.out' }
+            );
+          } catch (e) {}
+        }
+      }
 
       /* ----------------------------------------------------------------------
          2. SERVICE BUTTONS FUNCTIONALITY (PERSONALIZED MESSAGES)
@@ -676,28 +742,15 @@
           const category = btn.getAttribute('data-category');
           const personalizedMsg = btn.getAttribute('data-msg');
 
-          messageInput.value = personalizedMsg;
           activeProjectLabel.textContent = 'Project: ' + category;
-          syncButtonHref();
-
-          if (window.gsap) {
-            try {
-              gsap.fromTo(messageInput, 
-                { opacity: 0.5, y: -3 }, 
-                { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' }
-              );
-            } catch (err) {}
-          }
-
+          updateMarqueeMessage(personalizedMsg);
           playChime();
         });
       });
 
-      messageInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          contactBtn.click();
-        }
+      // Clicking the marquee pill itself opens WhatsApp directly too!
+      marqueePill.addEventListener('click', () => {
+        contactBtn.click();
       });
 
       /* ----------------------------------------------------------------------
