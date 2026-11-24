@@ -3,34 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Theki Production | Coming Soon</title>
-  <meta name="description" content="Theki Production - Redefining cinematic storytelling. An extraordinary visual experience is in production. Coming Soon.">
+  <title>Theki Productions — Coming Soon</title>
+  <meta name="description" content="Theki Productions - Join our waitlist. Receive the latest updates and insights straight to your inbox. Coming Soon.">
   
-  <!-- Premium Google Fonts -->
+  <!-- Premium Modern Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Outfit:wght@300;400;500;700;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     /* ==========================================================================
-       DESIGN SYSTEM & CINEMATIC THEME
+       DESIGN SYSTEM (MATCHING REFERENCE EXACTLY)
+       Ultra-clean dark Framer glassmorphism + 3D fluid amber light ribbons
        ========================================================================== */
     :root {
-      --bg-base: #050508;
-      --bg-surface: rgba(15, 15, 24, 0.65);
-      --gold-primary: #e6b85c;
-      --gold-bright: #fff2b2;
-      --gold-deep: #9d7827;
-      --gold-gradient: linear-gradient(135deg, #fcebb6 0%, #e6b85c 40%, #b8860b 70%, #ffd700 100%);
-      --amber-glow: rgba(230, 184, 92, 0.4);
-      --cyan-accent: #00f2fe;
-      --text-main: #f8fafc;
-      --text-dim: #94a3b8;
-      --text-muted: #64748b;
-      --border-subtle: rgba(230, 184, 92, 0.2);
-      --border-highlight: rgba(255, 242, 178, 0.5);
-      --font-display: 'Cinzel', serif;
-      --font-body: 'Outfit', sans-serif;
+      --bg-dark: #000000;
+      --card-bg: rgba(255, 255, 255, 0.035);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --card-border-top: rgba(255, 255, 255, 0.28);
+      --card-inner-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2);
+      --card-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.95), 0 20px 40px -15px rgba(0, 0, 0, 0.8);
+      --text-white: #ffffff;
+      --text-sub: #9ca3af;
+      --text-muted: #6b7280;
+      --orange-glow: #ff7700;
+      --amber-accent: #f59e0b;
+      --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       --font-mono: 'Space Grotesk', monospace;
     }
 
@@ -42,631 +40,459 @@
 
     html, body {
       width: 100%;
-      height: 100%;
+      min-height: 100%;
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      font-family: var(--font-main);
       overflow-x: hidden;
-      background-color: var(--bg-base);
-      color: var(--text-main);
-      font-family: var(--font-body);
-      user-select: none;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      position: relative;
     }
 
-    /* Ambient cursor spotlight tracking */
+    /* Ambient dynamic spotlight */
     #spotlight {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      inset: 0;
       pointer-events: none;
       z-index: 1;
-      background: radial-gradient(circle 600px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(230, 184, 92, 0.07), transparent 80%);
+      background: radial-gradient(circle 700px at var(--mouse-x, 50%) var(--mouse-y, 40%), rgba(255, 119, 0, 0.08), transparent 75%);
       transition: background 0.1s ease;
     }
 
-    /* Interactive Particle Canvas */
-    #canvas-particles {
+    /* Background 3D Glowing Ribbon Canvas */
+    #ribbon-canvas {
       position: fixed;
-      top: 0;
-      left: 0;
+      inset: 0;
       width: 100%;
       height: 100%;
-      z-index: 2;
       pointer-events: none;
+      z-index: 2;
     }
 
-    /* Film grain texture */
-    .film-grain {
+    /* Subtle Film Grain */
+    .grain-layer {
       position: fixed;
       inset: 0;
       width: 100%;
       height: 100%;
       pointer-events: none;
       z-index: 3;
-      opacity: 0.04;
+      opacity: 0.035;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     }
 
-    /* Vignette & cinematic letterbox effect */
-    .cinematic-vignette {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 4;
-      background: radial-gradient(circle at center, transparent 40%, rgba(5, 5, 8, 0.85) 100%),
-                  linear-gradient(to bottom, rgba(5, 5, 8, 0.7) 0%, transparent 15%, transparent 85%, rgba(5, 5, 8, 0.8) 100%);
-    }
-
-    /* App Layout */
-    .main-viewport {
+    /* Main Container */
+    .page-container {
       position: relative;
       z-index: 10;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       align-items: center;
-      padding: 2.5rem 1.8rem;
+      justify-content: space-between;
+      padding: 2.2rem 1.5rem 1.5rem;
     }
 
     /* ==========================================================================
-       HEADER & SOUND VISUALIZER CONTROLS
+       HEADER / TOP PILL & SOUND CONTROLLER
        ========================================================================== */
-    header {
+    .top-header {
       width: 100%;
       max-width: 1200px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-
-    .brand-mark {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      text-decoration: none;
-    }
-
-    /* Stylized Theki / Camera Aperture Emblem */
-    .brand-emblem {
-      width: 44px;
-      height: 44px;
       position: relative;
-      display: flex;
+    }
+
+    /* Waitlist Top Pill (Identical to Reference) */
+    .waitlist-badge {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      background: rgba(230, 184, 92, 0.08);
-      border: 1px solid var(--border-subtle);
-      border-radius: 50%;
-      box-shadow: 0 0 25px rgba(230, 184, 92, 0.2);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .brand-emblem:hover {
-      transform: rotate(90deg) scale(1.1);
-      border-color: var(--gold-bright);
-      box-shadow: 0 0 35px rgba(230, 184, 92, 0.5);
-    }
-
-    .brand-emblem svg {
-      width: 22px;
-      height: 22px;
-      fill: none;
-      stroke: var(--gold-primary);
-      stroke-width: 1.8;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .brand-text-block {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.1;
-    }
-
-    .brand-title {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 1.25rem;
-      letter-spacing: 4px;
-      color: #fff;
-    }
-
-    .brand-tag {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 3px;
-      color: var(--gold-primary);
-      text-transform: uppercase;
-    }
-
-    /* Sound Controller Pill */
-    .sound-control-pill {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      background: rgba(20, 20, 32, 0.6);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--border-subtle);
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: 999px;
-      padding: 0.55rem 1.1rem;
+      padding: 0.42rem 1.15rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #ffffff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      transition: all 0.3s ease;
       cursor: pointer;
+    }
+
+    .waitlist-badge:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .badge-icon {
+      font-size: 0.85rem;
+      color: #ff9d00;
+      display: inline-block;
+    }
+
+    /* Audio Controller Pill ("It sounds cool") */
+    .audio-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 0.42rem 1.1rem;
+      cursor: pointer;
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
       transition: all 0.3s ease;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     }
 
-    .sound-control-pill:hover {
-      border-color: var(--gold-bright);
-      box-shadow: 0 0 20px rgba(230, 184, 92, 0.3);
-      transform: translateY(-2px);
+    .audio-toggle-btn:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
     }
 
-    .sound-control-pill:active {
-      transform: scale(0.96);
-    }
-
-    .sound-label {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--gold-primary);
-      font-weight: 600;
-    }
-
-    /* Live Audio Wave Bars */
-    .audio-visualizer-bars {
+    .equalizer-wave {
       display: flex;
       align-items: flex-end;
-      gap: 3px;
-      height: 16px;
+      gap: 2.5px;
+      height: 14px;
     }
 
-    .viz-bar {
-      width: 3px;
-      background: var(--gold-primary);
-      border-radius: 2px;
-      height: 4px;
+    .eq-bar {
+      width: 2.5px;
+      height: 3px;
+      background: #ffaa00;
+      border-radius: 1px;
       transition: height 0.15s ease;
     }
 
-    .audio-active .viz-bar:nth-child(1) { animation: soundBar 0.7s infinite alternate ease-in-out; }
-    .audio-active .viz-bar:nth-child(2) { animation: soundBar 0.5s infinite alternate ease-in-out 0.2s; }
-    .audio-active .viz-bar:nth-child(3) { animation: soundBar 0.9s infinite alternate ease-in-out 0.1s; }
-    .audio-active .viz-bar:nth-child(4) { animation: soundBar 0.6s infinite alternate ease-in-out 0.3s; }
+    .audio-playing .eq-bar:nth-child(1) { animation: eqPulse 0.8s infinite alternate ease-in-out; }
+    .audio-playing .eq-bar:nth-child(2) { animation: eqPulse 0.5s infinite alternate ease-in-out 0.2s; }
+    .audio-playing .eq-bar:nth-child(3) { animation: eqPulse 0.9s infinite alternate ease-in-out 0.1s; }
+    .audio-playing .eq-bar:nth-child(4) { animation: eqPulse 0.6s infinite alternate ease-in-out 0.3s; }
 
-    @keyframes soundBar {
-      0% { height: 4px; }
-      100% { height: 16px; }
+    @keyframes eqPulse {
+      0% { height: 3px; }
+      100% { height: 14px; }
     }
 
     /* ==========================================================================
-       HERO CENTERPIECE (MASSIVE TITLE, COUNTDOWN & STATUS)
+       HERO CENTERPIECE (LOGO, COMING SOON, FROSTED CARD)
        ========================================================================== */
-    .hero-center {
-      text-align: center;
-      max-width: 900px;
+    .hero-section {
+      width: 100%;
+      max-width: 720px;
       margin: auto 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 2rem 0;
+      text-align: center;
+      padding: 1.5rem 0 2rem;
     }
 
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      background: rgba(230, 184, 92, 0.08);
-      border: 1px solid var(--border-subtle);
-      border-radius: 999px;
-      padding: 0.4rem 1.2rem;
-      margin-bottom: 2rem;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 0 25px rgba(230, 184, 92, 0.15);
-    }
-
-    .pulsing-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--gold-primary);
-      box-shadow: 0 0 10px var(--gold-primary);
-      animation: pulseGlow 2s infinite ease-in-out;
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 8px var(--gold-primary); }
-      50% { transform: scale(1.4); opacity: 0.6; box-shadow: 0 0 18px var(--gold-primary); }
-    }
-
-    .status-text {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      letter-spacing: 2.5px;
-      color: var(--gold-bright);
-      text-transform: uppercase;
-      font-weight: 500;
-    }
-
-    /* Hero Headline */
-    .hero-headline {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 9.5vw, 7.8rem);
-      font-weight: 900;
-      line-height: 0.95;
-      letter-spacing: clamp(6px, 1.8vw, 18px);
-      text-transform: uppercase;
-      margin-bottom: 1.2rem;
+    /* Official Theki Productions Logo */
+    .theki-logo-wrapper {
+      margin-bottom: 0.8rem;
       position: relative;
+      display: inline-block;
+      cursor: pointer;
     }
 
-    .hero-headline .title-row-1 {
+    .theki-logo-img {
+      width: 210px;
+      height: auto;
       display: block;
+      mix-blend-mode: screen;
+      filter: drop-shadow(0 0 35px rgba(255, 119, 0, 0.25));
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+    }
+
+    .theki-logo-wrapper:hover .theki-logo-img {
+      transform: scale(1.04);
+      filter: drop-shadow(0 0 50px rgba(255, 150, 0, 0.5));
+    }
+
+    /* Headline: Coming soon! (Exact font and weight from Reference) */
+    .headline-coming-soon {
+      font-size: clamp(2.8rem, 7vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.05;
       color: #ffffff;
-      text-shadow: 0 5px 35px rgba(0, 0, 0, 0.9);
-      background: linear-gradient(180deg, #ffffff 30%, #a0a0b0 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-headline .title-row-2 {
-      display: block;
-      background: var(--gold-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 35px rgba(230, 184, 92, 0.45));
-    }
-
-    /* Coming Soon sub-statement */
-    .hero-subline {
-      font-family: var(--font-body);
-      font-size: clamp(1rem, 2vw, 1.35rem);
-      font-weight: 300;
-      color: var(--text-dim);
-      letter-spacing: 1.5px;
-      max-width: 620px;
-      margin: 0 auto 3rem;
-      line-height: 1.7;
-    }
-
-    .hero-subline strong {
-      color: #fff;
-      font-weight: 600;
+      margin-bottom: 2.2rem;
+      text-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
     }
 
     /* ==========================================================================
-       COUNTDOWN TILES (CINEMATIC GLASSMORPHISM)
+       FROSTED GLASS CARD (EXACT REPLICA OF REFERENCE)
        ========================================================================== */
-    .countdown-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.2rem;
+    .glass-card {
       width: 100%;
-      max-width: 650px;
-      margin-bottom: 3.5rem;
-    }
-
-    .countdown-tile {
-      background: rgba(18, 18, 28, 0.7);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 1.4rem 0.8rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      max-width: 620px;
+      background: var(--card-bg);
+      backdrop-filter: blur(45px);
+      -webkit-backdrop-filter: blur(45px);
+      border: 1px solid var(--card-border);
+      border-top: 1px solid var(--card-border-top);
+      border-radius: 28px;
+      padding: 3.2rem 2.5rem 2.8rem;
+      box-shadow: var(--card-shadow), var(--card-inner-shadow);
       position: relative;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .countdown-tile::before {
+    .glass-card:hover {
+      box-shadow: 0 50px 120px -20px rgba(0, 0, 0, 0.98), 
+                  0 0 40px rgba(255, 119, 0, 0.12),
+                  var(--card-inner-shadow);
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    /* Inner subtle glow highlight on card top */
+    .glass-card::before {
       content: '';
       position: absolute;
       top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--gold-gradient);
-      opacity: 0.7;
+      left: 15%;
+      right: 15%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
     }
 
-    .countdown-tile:hover {
-      transform: translateY(-5px);
-      border-color: var(--gold-bright);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 25px rgba(230, 184, 92, 0.25);
-    }
-
-    .tile-number {
-      font-family: var(--font-mono);
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 700;
-      line-height: 1;
+    .card-title {
+      font-size: clamp(1.4rem, 3.2vw, 1.85rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
       color: #ffffff;
-      text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+      margin-bottom: 0.7rem;
     }
 
-    .tile-label {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gold-primary);
-      margin-top: 0.5rem;
-      font-weight: 500;
+    .card-subtitle {
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: var(--text-sub);
+      font-weight: 400;
+      max-width: 440px;
+      margin: 0 auto 2.2rem;
     }
 
-    /* ==========================================================================
-       VIP ACCESS / NOTIFICATION FORM
-       ========================================================================== */
-    .notify-wrapper {
-      width: 100%;
-      max-width: 520px;
+    /* Form Container */
+    .waitlist-form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      max-width: 480px;
+      margin: 0 auto;
       position: relative;
     }
 
-    .notify-form {
-      display: flex;
-      background: rgba(15, 15, 24, 0.8);
-      border: 1px solid var(--border-subtle);
-      border-radius: 999px;
-      padding: 0.45rem;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .notify-form:focus-within {
-      border-color: var(--gold-primary);
-      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.8), 0 0 30px rgba(230, 184, 92, 0.3);
-    }
-
-    .notify-input {
+    /* Input Pill */
+    .input-pill {
       flex: 1;
-      background: transparent;
-      border: none;
-      outline: none;
-      padding: 0.8rem 1.4rem;
-      color: #fff;
-      font-family: var(--font-body);
+      background: rgba(10, 10, 15, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 0.85rem 1.4rem;
+      color: #ffffff;
+      font-family: var(--font-main);
       font-size: 0.95rem;
-      letter-spacing: 0.5px;
+      outline: none;
+      transition: all 0.25s ease;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
     }
 
-    .notify-input::placeholder {
-      color: var(--text-muted);
+    .input-pill::placeholder {
+      color: #71717a;
     }
 
-    .notify-btn {
-      background: var(--gold-gradient);
-      color: #07070a;
+    .input-pill:focus {
+      border-color: rgba(255, 255, 255, 0.4);
+      background: rgba(10, 10, 15, 0.9);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 119, 0, 0.2);
+    }
+
+    /* Join Waitlist Button (Glowing White Pill matching Reference) */
+    .btn-join {
+      background: #ffffff;
+      color: #050508;
       border: none;
       outline: none;
       border-radius: 999px;
-      padding: 0.8rem 1.8rem;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
+      padding: 0.85rem 1.6rem;
+      font-family: var(--font-main);
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      box-shadow: 0 5px 20px rgba(230, 184, 92, 0.4);
-      transition: all 0.3s ease;
       white-space: nowrap;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.35), 0 4px 12px rgba(0, 0, 0, 0.5);
     }
 
-    .notify-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 30px rgba(230, 184, 92, 0.6);
+    .btn-join:hover {
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 0 35px rgba(255, 255, 255, 0.6), 0 6px 18px rgba(0, 0, 0, 0.6);
     }
 
-    .notify-btn:active {
-      transform: scale(0.96);
+    .btn-join:active {
+      transform: scale(0.97);
     }
 
-    /* Notification message response */
-    .notify-feedback {
+    /* Dynamic feedback toast */
+    .form-feedback {
       position: absolute;
-      bottom: -36px;
+      bottom: -34px;
       left: 0;
       right: 0;
       text-align: center;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      letter-spacing: 1px;
+      font-size: 0.85rem;
+      font-weight: 500;
       opacity: 0;
-      transform: translateY(-5px);
+      transform: translateY(-4px);
       transition: all 0.3s ease;
       pointer-events: none;
     }
 
-    .notify-feedback.active {
+    .form-feedback.show {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .notify-feedback.success {
-      color: var(--gold-bright);
+    .form-feedback.success {
+      color: #38ef7d;
+      text-shadow: 0 0 10px rgba(56, 239, 125, 0.4);
     }
 
-    .notify-feedback.error {
+    .form-feedback.error {
       color: #ff5555;
     }
 
     /* ==========================================================================
-       FOOTER & PRODUCTION CREDITS
+       SOCIAL ICON BUTTONS (MATCHING REFERENCE)
        ========================================================================== */
-    footer {
-      width: 100%;
-      max-width: 1200px;
+    .social-links-row {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .footer-left {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      letter-spacing: 1.5px;
-    }
-
-    .footer-center {
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    .social-link {
-      color: var(--text-dim);
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: color 0.2s ease, transform 0.2s ease;
-      display: inline-block;
-    }
-
-    .social-link:hover {
-      color: var(--gold-primary);
-      transform: translateY(-2px);
-    }
-
-    .footer-right {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--gold-primary);
-      letter-spacing: 2px;
-    }
-
-    /* ==========================================================================
-       INTERACTIVE CLAPPERBOARD MODAL (CINEMATIC EASTER EGG)
-       ========================================================================== */
-    .clap-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(5, 5, 8, 0.85);
-      backdrop-filter: blur(12px);
-      z-index: 1000;
-      display: none;
       align-items: center;
       justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      gap: 0.75rem;
+      margin-top: 2rem;
     }
 
-    .clap-overlay.open {
+    .social-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       display: flex;
-      opacity: 1;
+      align-items: center;
+      justify-content: center;
+      color: #a1a1aa;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     }
 
-    .clap-card {
-      background: #0f0f18;
-      border: 2px solid var(--gold-primary);
-      border-radius: 16px;
-      padding: 2.5rem;
-      text-align: center;
-      box-shadow: 0 0 60px rgba(230, 184, 92, 0.4);
-      max-width: 440px;
-      width: 90%;
-      transform: scale(0.9);
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    .social-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      transition: transform 0.2s ease, fill 0.2s ease;
     }
 
-    .clap-overlay.open .clap-card {
-      transform: scale(1);
+    .social-btn:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.22);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 119, 0, 0.2);
     }
 
-    .clap-icon {
-      font-size: 4rem;
-      margin-bottom: 1rem;
-      animation: wiggle 0.5s ease;
-    }
-
-    @keyframes wiggle {
-      0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(-10deg); }
-      75% { transform: rotate(10deg); }
-    }
-
-    .clap-card h3 {
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      color: var(--gold-bright);
-      margin-bottom: 0.5rem;
-      letter-spacing: 2px;
-    }
-
-    .clap-card p {
-      font-family: var(--font-body);
-      color: var(--text-dim);
-      font-size: 0.95rem;
-      margin-bottom: 1.8rem;
-      line-height: 1.6;
-    }
-
-    .clap-close-btn {
-      background: var(--gold-gradient);
-      color: #07070a;
-      border: none;
-      padding: 0.8rem 2rem;
-      border-radius: 999px;
-      font-family: var(--font-mono);
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      cursor: pointer;
-      text-transform: uppercase;
-      box-shadow: 0 5px 20px rgba(230, 184, 92, 0.4);
-    }
-
-    /* Screen Flash for Clapboard */
-    #screen-flash {
-      position: fixed;
-      inset: 0;
-      background: white;
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0;
-      transition: opacity 0.08s ease-out;
+    .social-btn:hover svg {
+      transform: scale(1.1);
+      fill: #ffffff;
     }
 
     /* ==========================================================================
-       RESPONSIVE DESIGN
+       GIANT HOLLOW BOTTOM TYPOGRAPHY ("Waitlist" from Reference)
        ========================================================================== */
-    @media (max-width: 768px) {
-      .countdown-grid {
-        gap: 0.8rem;
+    .giant-outline-wrap {
+      width: 100%;
+      text-align: center;
+      overflow: hidden;
+      margin-top: 1.5rem;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .giant-outline-text {
+      font-size: clamp(4.5rem, 16vw, 11.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 0.85;
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.11);
+      opacity: 0.65;
+      display: inline-block;
+      transform: translateY(12%);
+    }
+
+    /* Minimalist Footer */
+    .bottom-footer {
+      width: 100%;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #52525b;
+      letter-spacing: 0.5px;
+      padding-top: 0.5rem;
+    }
+
+    .bottom-footer a {
+      color: #71717a;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .bottom-footer a:hover {
+      color: #ffffff;
+    }
+
+    /* ==========================================================================
+       RESPONSIVE ADJUSTMENTS
+       ========================================================================== */
+    @media (max-width: 640px) {
+      .glass-card {
+        padding: 2.2rem 1.4rem 2rem;
+        border-radius: 22px;
       }
-      .countdown-tile {
-        padding: 1rem 0.4rem;
-      }
-      .notify-form {
+      .waitlist-form {
         flex-direction: column;
-        border-radius: 16px;
-        padding: 0.7rem;
-        gap: 0.7rem;
-      }
-      .notify-btn {
         width: 100%;
-        justify-content: center;
       }
-      footer {
-        flex-direction: column;
-        gap: 1.2rem;
-        text-align: center;
+      .input-pill {
+        width: 100%;
+      }
+      .btn-join {
+        width: 100%;
+      }
+      .theki-logo-img {
+        width: 170px;
       }
     }
   </style>
@@ -675,171 +501,221 @@
 
   <!-- Ambient Cursor Spotlight & Overlays -->
   <div id="spotlight" aria-hidden="true"></div>
-  <canvas id="canvas-particles" aria-hidden="true"></canvas>
-  <div class="film-grain" aria-hidden="true"></div>
-  <div class="cinematic-vignette" aria-hidden="true"></div>
-  <div id="screen-flash" aria-hidden="true"></div>
+  <canvas id="ribbon-canvas" aria-hidden="true"></canvas>
+  <div class="grain-layer" aria-hidden="true"></div>
 
-  <!-- Main Viewport Layout -->
-  <div class="main-viewport">
-    
-    <!-- Top Navigation & Sound Controller -->
-    <header>
-      <a href="#" class="brand-mark" id="brand-logo-btn" aria-label="Theki Production - Click for clapperboard sound">
-        <div class="brand-emblem" title="Theki Production Lens Aperture">
-          <svg viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="9"/>
-            <path d="M12 3v6M19.8 7.5l-5.2 3M21 16.5l-5.7-1.8M14.5 21l-2.5-5.5M7.5 19.8l3-5.2M3 12h6"/>
-          </svg>
-        </div>
-        <div class="brand-text-block">
-          <span class="brand-title">THEKI</span>
-          <span class="brand-tag">PRODUCTION</span>
-        </div>
-      </a>
+  <!-- Page Layout -->
+  <div class="page-container">
 
-      <!-- Ambient Audio Controller Pill -->
-      <button class="sound-control-pill" id="sound-toggle-btn" aria-label="Toggle cinematic audio experience">
-        <span class="sound-label" id="sound-state-label">Audio: OFF</span>
-        <div class="audio-visualizer-bars" aria-hidden="true">
-          <div class="viz-bar"></div>
-          <div class="viz-bar"></div>
-          <div class="viz-bar"></div>
-          <div class="viz-bar"></div>
+    <!-- Top Header Bar -->
+    <header class="top-header">
+      <!-- Top Waitlist Badge (Matching Reference) -->
+      <div class="waitlist-badge" id="top-waitlist-pill">
+        <span class="badge-icon">✦</span>
+        <span>Waitlist</span>
+      </div>
+
+      <!-- Cool Audio Ambient Sound Controller -->
+      <button class="audio-toggle-btn" id="audio-toggle" aria-label="Toggle cinematic background sound">
+        <span id="audio-label">Sound: OFF</span>
+        <div class="equalizer-wave" aria-hidden="true">
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
         </div>
       </button>
     </header>
 
-    <!-- Centerpiece Hero Content -->
-    <main class="hero-center">
+    <!-- Center Section: Official Logo, "Coming soon!", and Frosted Card -->
+    <main class="hero-section">
       
-      <!-- Status Badge -->
-      <div class="status-badge">
-        <span class="pulsing-dot" aria-hidden="true"></span>
-        <span class="status-text">Production In Progress • Worldwide Launch</span>
+      <!-- Official Theki Productions Logo -->
+      <div class="theki-logo-wrapper" id="logo-trigger" title="Theki Productions">
+        <img src="logo.jpeg" alt="Theki Productions Logo" class="theki-logo-img">
       </div>
 
-      <!-- Main Cinematic Headline -->
-      <h1 class="hero-headline">
-        <span class="title-row-1">THEKI</span>
-        <span class="title-row-2">PRODUCTION</span>
-      </h1>
+      <!-- Main Headline (Matching Reference) -->
+      <h1 class="headline-coming-soon">Coming soon!</h1>
 
-      <!-- Cinematic Sub-statement -->
-      <p class="hero-subline">
-        Stories etched in light, sound, and raw motion. An extraordinary cinematic revolution is currently filming behind closed doors. <strong>Coming Soon.</strong>
-      </p>
+      <!-- Frosted Glassmorphism Card (Exact replica of Reference) -->
+      <div class="glass-card">
+        <h2 class="card-title">Join our waitlist!</h2>
+        <p class="card-subtitle">Sign up for our newsletter to receive the latest updates and insights straight to your inbox.</p>
 
-      <!-- Dynamic Countdown Timer -->
-      <div class="countdown-grid" role="timer" aria-label="Premiere Launch Countdown">
-        <div class="countdown-tile">
-          <span class="tile-number" id="timer-days">42</span>
-          <span class="tile-label">Days</span>
-        </div>
-        <div class="countdown-tile">
-          <span class="tile-number" id="timer-hours">18</span>
-          <span class="tile-label">Hours</span>
-        </div>
-        <div class="countdown-tile">
-          <span class="tile-number" id="timer-minutes">24</span>
-          <span class="tile-label">Minutes</span>
-        </div>
-        <div class="countdown-tile">
-          <span class="tile-number" id="timer-seconds">59</span>
-          <span class="tile-label">Seconds</span>
-        </div>
-      </div>
-
-      <!-- VIP Access / Notification Form -->
-      <div class="notify-wrapper">
-        <form class="notify-form" id="notify-form">
+        <!-- Form: Enter email + Join Waitlist Button -->
+        <form class="waitlist-form" id="waitlist-form" novalidate>
           <input 
             type="email" 
-            class="notify-input" 
-            id="notify-email" 
-            placeholder="Enter your email for the private screening..." 
+            class="input-pill" 
+            id="user-email" 
+            placeholder="Enter email" 
             required 
-            aria-label="Email address for private premiere screening"
+            aria-label="Email address for waitlist"
           >
-          <button type="submit" class="notify-btn" id="notify-btn">
-            <span>Get VIP Access</span>
-            <span aria-hidden="true">→</span>
+          <button type="submit" class="btn-join" id="btn-submit-waitlist">
+            Join Waitlist
           </button>
+          <div class="form-feedback" id="form-feedback" aria-live="polite"></div>
         </form>
-        <div class="notify-feedback" id="notify-feedback" aria-live="polite"></div>
+      </div>
+
+      <!-- Social Media Buttons (X, Facebook, Instagram matching Reference) -->
+      <div class="social-links-row" aria-label="Social links">
+        <!-- X (Twitter) -->
+        <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Follow Theki Productions on X">
+          <svg viewBox="0 0 24 24">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+
+        <!-- Facebook -->
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Follow Theki Productions on Facebook">
+          <svg viewBox="0 0 24 24">
+            <path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.82 0-1.667.409-1.667 1.774v2.206h4.526l-.678 3.667h-3.848v7.98A11.968 11.968 0 0 0 24 12c0-6.627-5.373-12-12-12S0 5.373 0 12a11.968 11.968 0 0 0 9.101 11.691z"/>
+          </svg>
+        </a>
+
+        <!-- Instagram -->
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Follow Theki Productions on Instagram">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </a>
       </div>
 
     </main>
 
-    <!-- Footer & Production Details -->
-    <footer>
-      <div class="footer-left">
-        <span>© 2026 THEKI PRODUCTION. ALL RIGHTS RESERVED.</span>
-      </div>
+    <!-- Giant Hollow Bottom Typography ("Waitlist" from Reference) -->
+    <div class="giant-outline-wrap" aria-hidden="true">
+      <span class="giant-outline-text">Waitlist</span>
+    </div>
 
-      <div class="footer-center">
-        <a href="#cinema" class="social-link" id="link-trailer">Teaser</a>
-        <a href="#soundtrack" class="social-link" id="link-soundtrack">Audio Track</a>
-        <a href="#inquiries" class="social-link" id="link-contact">Inquiries</a>
-      </div>
-
-      <div class="footer-right">
-        <span>CINEMATIC UNIVERSE IN THE MAKING</span>
-      </div>
+    <!-- Minimalist Footer (Matching Reference) -->
+    <footer class="bottom-footer">
+      <span>© 2026 Theki Productions • Coming Soon</span>
     </footer>
 
   </div>
 
-  <!-- Easter Egg Clapperboard Modal -->
-  <div class="clap-overlay" id="clap-modal" role="dialog" aria-modal="true" aria-label="Production Slate Take 1">
-    <div class="clap-card">
-      <div class="clap-icon" aria-hidden="true">🎬</div>
-      <h3>SCENE 01 / TAKE 01</h3>
-      <p>
-        <strong>THEKI PRODUCTION</strong><br>
-        Director: Visionary Mind<br>
-        Camera: 8K Anamorphic • Sound: Dolby Atmos<br>
-        Status: Currently rolling cameras.
-      </p>
-      <button class="clap-close-btn" id="clap-close-btn">Cut & Print</button>
-    </div>
-  </div>
-
   <!-- ==========================================================================
        VANILLA JAVASCRIPT:
-       1. Web Audio API Cinematic Sound Engine (Ambient drone, whoosh, bass drop, click)
-       2. Interactive Particle Starfield with Physics & Cursor Gravitation
-       3. Dynamic Precision Countdown
-       4. VIP Submission with Sound & Micro-animations
-       5. Interactive Clapperboard Easter Egg (Spacebar or Logo click)
-       ========================================================================== -->
+       1. 3D Glowing Amber Ribbon Fluid Dynamics (Canvas)
+       2. Web Audio API Ambient Sound Synthesizer ("it sound be cool")
+       3. Interactive Form Handling
+       ========================================================================== */
   <script>
     (function() {
       'use strict';
 
       /* ----------------------------------------------------------------------
-         1. CINEMATIC WEB AUDIO ENGINE (ZERO EXTERNAL AUDIO FILES)
-         Synthesizes:
-         - Ambient mysterious cinematic drone with warm resonant filters & LFO
-         - Deep sub-bass impact drop (Hans Zimmer style)
-         - High-tech lens click / aperture tick on interactions
-         - Rising chime on VIP access grant
-         - Classic wooden clapperboard snap for the easter egg!
+         1. 3D GLOWING AMBER RIBBONS (CANVAS FLUID DYNAMICS)
+         Recreates the exact glowing orange/copper fluid curves from reference.jpeg
+         ---------------------------------------------------------------------- */
+      const canvas = document.getElementById('ribbon-canvas');
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      let mouseX = window.innerWidth * 0.5;
+      let mouseY = window.innerHeight * 0.45;
+      let targetMouseX = mouseX;
+      let targetMouseY = mouseY;
+      let time = 0;
+
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      // Spotlight tracking
+      const spotlight = document.getElementById('spotlight');
+      window.addEventListener('mousemove', (e) => {
+        targetMouseX = e.clientX;
+        targetMouseY = e.clientY;
+        spotlight.style.setProperty('--mouse-x', `${e.clientX}px`);
+        spotlight.style.setProperty('--mouse-y', `${e.clientY}px`);
+      }, { passive: true });
+
+      function renderRibbons() {
+        // Smooth mouse lag
+        mouseX += (targetMouseX - mouseX) * 0.05;
+        mouseY += (targetMouseY - mouseY) * 0.05;
+        time += 0.012;
+
+        ctx.clearRect(0, 0, width, height);
+
+        // Center calculation
+        const cx = width * 0.5 + (mouseX - width * 0.5) * 0.12;
+        const cy = height * 0.4 + (mouseY - height * 0.5) * 0.12;
+
+        // Draw multiple glowing fluid ribbons
+        drawFluidRibbon(cx, cy, 280, 140, '#ff7700', 36, 0.45, 0);
+        drawFluidRibbon(cx, cy, 320, 160, '#ff9900', 18, 0.35, 1.2);
+        drawFluidRibbon(cx, cy, 240, 110, '#ff4400', 12, 0.55, 2.4);
+
+        requestAnimationFrame(renderRibbons);
+      }
+
+      function drawFluidRibbon(centerX, centerY, radiusX, radiusY, color, blur, opacity, offset) {
+        ctx.save();
+        ctx.beginPath();
+
+        const points = 80;
+        for (let i = 0; i <= points; i++) {
+          const angle = (i / points) * Math.PI * 2;
+          const wave = Math.sin(angle * 2 + time + offset) * 35 + Math.cos(angle * 3 - time) * 20;
+          
+          const rx = radiusX + wave;
+          const ry = radiusY + wave * 0.6;
+
+          const x = centerX + Math.cos(angle) * rx;
+          const y = centerY + Math.sin(angle) * ry;
+
+          if (i === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
+        }
+        ctx.closePath();
+
+        ctx.shadowColor = color;
+        ctx.shadowBlur = blur;
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 3.5;
+        ctx.globalAlpha = opacity;
+        ctx.stroke();
+
+        // Second pass for core brightness
+        ctx.shadowBlur = blur * 0.3;
+        ctx.lineWidth = 1.2;
+        ctx.strokeStyle = '#ffffff';
+        ctx.globalAlpha = opacity * 0.6;
+        ctx.stroke();
+
+        ctx.restore();
+      }
+
+      renderRibbons();
+
+      /* ----------------------------------------------------------------------
+         2. WEB AUDIO API AMBIENT SOUND ("IT SOUND BE COOL")
+         Generates:
+         - Deep atmospheric cinematic drone
+         - Crystal impact chime on submit
          ---------------------------------------------------------------------- */
       let audioCtx = null;
-      let isAudioRunning = false;
+      let isPlaying = false;
       let droneGain = null;
-      let droneOsc1 = null;
-      let droneOsc2 = null;
-      let droneFilter = null;
-      let lfo = null;
+      let osc1 = null;
+      let osc2 = null;
+      let filter = null;
 
-      function initAudioContext() {
+      function getAudioContext() {
         if (!audioCtx) {
           const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-          if (AudioContextClass) {
-            audioCtx = new AudioContextClass();
-          }
+          if (AudioContextClass) audioCtx = new AudioContextClass();
         }
         if (audioCtx && audioCtx.state === 'suspended') {
           audioCtx.resume();
@@ -847,394 +723,134 @@
         return audioCtx;
       }
 
-      function startAmbientDrone() {
-        const ctx = initAudioContext();
-        if (!ctx || isAudioRunning) return;
+      function startAudio() {
+        const ctx = getAudioContext();
+        if (!ctx || isPlaying) return;
 
         try {
           droneGain = ctx.createGain();
           droneGain.gain.setValueAtTime(0.001, ctx.currentTime);
-          droneGain.gain.exponentialRampToValueAtTime(0.18, ctx.currentTime + 3);
+          droneGain.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 2.5);
 
-          // Deep cinematic lowpass filter
-          droneFilter = ctx.createBiquadFilter();
-          droneFilter.type = 'lowpass';
-          droneFilter.frequency.setValueAtTime(140, ctx.currentTime);
-          droneFilter.Q.value = 4.5;
+          filter = ctx.createBiquadFilter();
+          filter.type = 'lowpass';
+          filter.frequency.setValueAtTime(160, ctx.currentTime);
+          filter.Q.value = 3.5;
 
-          // LFO for slow breathing atmospheric resonance
-          lfo = ctx.createOscillator();
-          const lfoGain = ctx.createGain();
-          lfo.frequency.value = 0.18; // Very slow cycle (every ~5s)
-          lfoGain.gain.value = 80;
-          lfo.connect(lfoGain);
-          lfoGain.connect(droneFilter.frequency);
-          lfo.start();
+          osc1 = ctx.createOscillator();
+          osc1.type = 'sawtooth';
+          osc1.frequency.setValueAtTime(55, ctx.currentTime); // A1 note
 
-          // Osc 1: Deep C2 note (65.4 Hz)
-          droneOsc1 = ctx.createOscillator();
-          droneOsc1.type = 'sawtooth';
-          droneOsc1.frequency.setValueAtTime(65.4, ctx.currentTime);
+          osc2 = ctx.createOscillator();
+          osc2.type = 'sine';
+          osc2.frequency.setValueAtTime(110, ctx.currentTime); // A2 note
+          osc2.detune.value = 6;
 
-          // Osc 2: Detuned sub-octave C1 (32.7 Hz) + slight detune for phase richness
-          droneOsc2 = ctx.createOscillator();
-          droneOsc2.type = 'sine';
-          droneOsc2.frequency.setValueAtTime(32.7, ctx.currentTime);
-          droneOsc2.detune.value = 8;
-
-          droneOsc1.connect(droneFilter);
-          droneOsc2.connect(droneFilter);
-          droneFilter.connect(droneGain);
+          osc1.connect(filter);
+          osc2.connect(filter);
+          filter.connect(droneGain);
           droneGain.connect(ctx.destination);
 
-          droneOsc1.start();
-          droneOsc2.start();
+          osc1.start();
+          osc2.start();
 
-          isAudioRunning = true;
-          document.getElementById('sound-toggle-btn').classList.add('audio-active');
-          document.getElementById('sound-state-label').textContent = 'Audio: ON';
-        } catch (err) {
-          console.warn('Audio start prevented:', err);
+          isPlaying = true;
+          document.getElementById('audio-toggle').classList.add('audio-playing');
+          document.getElementById('audio-label').textContent = 'Sound: ON';
+        } catch (e) {
+          console.warn('Audio auto-play prevented:', e);
         }
       }
 
-      function stopAmbientDrone() {
-        if (!audioCtx || !isAudioRunning) return;
+      function stopAudio() {
+        if (!audioCtx || !isPlaying) return;
         try {
           if (droneGain) {
-            droneGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1);
+            droneGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.8);
             setTimeout(() => {
-              if (droneOsc1) { droneOsc1.stop(); droneOsc1.disconnect(); }
-              if (droneOsc2) { droneOsc2.stop(); droneOsc2.disconnect(); }
-              if (lfo) { lfo.stop(); lfo.disconnect(); }
-              isAudioRunning = false;
-            }, 1000);
+              if (osc1) { osc1.stop(); osc1.disconnect(); }
+              if (osc2) { osc2.stop(); osc2.disconnect(); }
+              isPlaying = false;
+            }, 800);
           }
-          document.getElementById('sound-toggle-btn').classList.remove('audio-active');
-          document.getElementById('sound-state-label').textContent = 'Audio: OFF';
+          document.getElementById('audio-toggle').classList.remove('audio-playing');
+          document.getElementById('audio-label').textContent = 'Sound: OFF';
         } catch (e) {}
       }
 
-      // Deep cinematic sub-bass impact drop
-      function playCinematicBoom() {
-        const ctx = initAudioContext();
+      function playChime() {
+        const ctx = getAudioContext();
         if (!ctx) return;
         try {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
+          // Elegant crystal chord chime
+          [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
 
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(110, ctx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(24, ctx.currentTime + 1.2);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.05);
 
-          gain.gain.setValueAtTime(0.5, ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
+            gain.gain.setValueAtTime(0.15, ctx.currentTime + i * 0.05);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2 + i * 0.05);
 
-          osc.connect(gain);
-          gain.connect(ctx.destination);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
 
-          osc.start(ctx.currentTime);
-          osc.stop(ctx.currentTime + 1.2);
+            osc.start(ctx.currentTime + i * 0.05);
+            osc.stop(ctx.currentTime + 1.2 + i * 0.05);
+          });
         } catch (e) {}
       }
 
-      // Crisp aperture / high-tech lens tick
-      function playLensClick() {
-        const ctx = initAudioContext();
-        if (!ctx) return;
-        try {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(1200, ctx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.04);
-
-          gain.gain.setValueAtTime(0.12, ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
-
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-
-          osc.start(ctx.currentTime);
-          osc.stop(ctx.currentTime + 0.04);
-        } catch (e) {}
-      }
-
-      // Clapperboard wooden snap
-      function playClapperSound() {
-        const ctx = initAudioContext();
-        if (!ctx) return;
-        try {
-          // Sharp impulse snap
-          const bufferSize = ctx.sampleRate * 0.035;
-          const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-          const data = buffer.getChannelData(0);
-          for (let i = 0; i < bufferSize; i++) {
-            data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.25));
-          }
-
-          const noise = ctx.createBufferSource();
-          noise.buffer = buffer;
-
-          const filter = ctx.createBiquadFilter();
-          filter.type = 'bandpass';
-          filter.frequency.value = 1600;
-          filter.Q.value = 2.5;
-
-          const gain = ctx.createGain();
-          gain.gain.setValueAtTime(0.8, ctx.currentTime);
-
-          noise.connect(filter);
-          filter.connect(gain);
-          gain.connect(ctx.destination);
-
-          noise.start(ctx.currentTime);
-
-          // Followed by body thud
-          setTimeout(() => {
-            playCinematicBoom();
-          }, 30);
-        } catch (e) {}
-      }
-
-      // Sound toggle listener
-      const soundBtn = document.getElementById('sound-toggle-btn');
-      soundBtn.addEventListener('click', () => {
-        if (!isAudioRunning) {
-          startAmbientDrone();
-          playLensClick();
+      const audioToggle = document.getElementById('audio-toggle');
+      audioToggle.addEventListener('click', () => {
+        if (!isPlaying) {
+          startAudio();
+          playChime();
         } else {
-          stopAmbientDrone();
-          playLensClick();
+          stopAudio();
         }
       });
 
       /* ----------------------------------------------------------------------
-         2. CURSOR SPOTLIGHT TRACKING
+         3. FORM SUBMISSION INTERACTION
          ---------------------------------------------------------------------- */
-      const spotlight = document.getElementById('spotlight');
-      let mouseX = window.innerWidth / 2;
-      let mouseY = window.innerHeight / 2;
+      const form = document.getElementById('waitlist-form');
+      const emailInput = document.getElementById('user-email');
+      const feedback = document.getElementById('form-feedback');
+      const submitBtn = document.getElementById('btn-submit-waitlist');
 
-      window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        spotlight.style.setProperty('--mouse-x', `${mouseX}px`);
-        spotlight.style.setProperty('--mouse-y', `${mouseY}px`);
-      }, { passive: true });
-
-      /* ----------------------------------------------------------------------
-         3. CINEMATIC PARTICLES CANVAS (INTERACTIVE EMBERS & DUST)
-         ---------------------------------------------------------------------- */
-      const canvas = document.getElementById('canvas-particles');
-      const ctx2d = canvas.getContext('2d');
-      let particles = [];
-      const particleCount = 75;
-
-      function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }
-      window.addEventListener('resize', resizeCanvas);
-      resizeCanvas();
-
-      class Particle {
-        constructor() {
-          this.reset();
-        }
-
-        reset() {
-          this.x = Math.random() * canvas.width;
-          this.y = Math.random() * canvas.height;
-          this.size = Math.random() * 2.2 + 0.6;
-          this.speedX = (Math.random() - 0.5) * 0.45;
-          this.speedY = -Math.random() * 0.65 - 0.15; // Slow upward float
-          this.alpha = Math.random() * 0.6 + 0.2;
-          this.fadeSpeed = Math.random() * 0.006 + 0.002;
-          this.color = Math.random() > 0.4 ? '230, 184, 92' : '255, 242, 178';
-        }
-
-        update() {
-          this.x += this.speedX;
-          this.y += this.speedY;
-
-          // Gentle mouse gravitation
-          const dx = mouseX - this.x;
-          const dy = mouseY - this.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 180) {
-            const force = (180 - dist) / 180;
-            this.x -= (dx / dist) * force * 1.5;
-            this.y -= (dy / dist) * force * 1.5;
-          }
-
-          this.alpha -= this.fadeSpeed;
-          if (this.alpha <= 0 || this.y < -10 || this.x < -10 || this.x > canvas.width + 10) {
-            this.reset();
-            this.y = canvas.height + 5;
-          }
-        }
-
-        draw() {
-          ctx2d.beginPath();
-          ctx2d.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-          ctx2d.fillStyle = `rgba(${this.color}, ${this.alpha})`;
-          ctx2d.shadowBlur = 10;
-          ctx2d.shadowColor = `rgba(${this.color}, 0.5)`;
-          ctx2d.fill();
-        }
-      }
-
-      for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
-      }
-
-      function animateParticles() {
-        ctx2d.clearRect(0, 0, canvas.width, canvas.height);
-        for (let i = 0; i < particles.length; i++) {
-          particles[i].update();
-          particles[i].draw();
-        }
-        requestAnimationFrame(animateParticles);
-      }
-      animateParticles();
-
-      /* ----------------------------------------------------------------------
-         4. DYNAMIC PREMIERE COUNTDOWN TIMER
-         Target date: ~45 days from current date
-         ---------------------------------------------------------------------- */
-      const targetDate = new Date();
-      targetDate.setDate(targetDate.getDate() + 45);
-      targetDate.setHours(20, 0, 0, 0); // 8:00 PM Premiere
-
-      const daysEl = document.getElementById('timer-days');
-      const hoursEl = document.getElementById('timer-hours');
-      const minutesEl = document.getElementById('timer-minutes');
-      const secondsEl = document.getElementById('timer-seconds');
-
-      function updateCountdown() {
-        const now = new Date().getTime();
-        const diff = targetDate.getTime() - now;
-
-        if (diff > 0) {
-          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-          const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-          const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-          daysEl.textContent = String(days).padStart(2, '0');
-          hoursEl.textContent = String(hours).padStart(2, '0');
-          minutesEl.textContent = String(minutes).padStart(2, '0');
-          secondsEl.textContent = String(seconds).padStart(2, '0');
-        }
-      }
-      setInterval(updateCountdown, 1000);
-      updateCountdown();
-
-      /* ----------------------------------------------------------------------
-         5. VIP ACCESS NOTIFICATION FORM
-         ---------------------------------------------------------------------- */
-      const notifyForm = document.getElementById('notify-form');
-      const notifyEmail = document.getElementById('notify-email');
-      const notifyFeedback = document.getElementById('notify-feedback');
-
-      notifyForm.addEventListener('submit', (e) => {
+      form.addEventListener('submit', (e) => {
         e.preventDefault();
-        const email = notifyEmail.value.trim();
+        const val = emailInput.value.trim();
 
-        if (email) {
-          playCinematicBoom();
-          notifyFeedback.textContent = "✓ Access Granted. Private screening pass will be dispatched.";
-          notifyFeedback.className = "notify-feedback active success";
-          notifyEmail.value = "";
+        if (val) {
+          playChime();
+          submitBtn.textContent = 'Joined!';
+          submitBtn.style.background = '#38ef7d';
+          submitBtn.style.color = '#000000';
 
-          // Flash screen briefly
-          triggerFlash();
+          feedback.textContent = '✓ You are on the waitlist! Priority screening details sent.';
+          feedback.className = 'form-feedback show success';
+          emailInput.value = '';
 
           setTimeout(() => {
-            notifyFeedback.classList.remove('active');
-          }, 5000);
+            submitBtn.textContent = 'Join Waitlist';
+            submitBtn.style.background = '';
+            submitBtn.style.color = '';
+            feedback.className = 'form-feedback';
+          }, 4500);
         }
       });
 
-      /* ----------------------------------------------------------------------
-         6. CINEMATIC EASTER EGG (CLAPPERBOARD)
-         Triggers on:
-         - Clicking the Brand Emblem Logo
-         - Pressing the SPACEBAR
-         ---------------------------------------------------------------------- */
-      const brandLogoBtn = document.getElementById('brand-logo-btn');
-      const clapModal = document.getElementById('clap-modal');
-      const clapCloseBtn = document.getElementById('clap-close-btn');
-      const screenFlash = document.getElementById('screen-flash');
-
-      function triggerFlash() {
-        screenFlash.style.opacity = '0.7';
-        setTimeout(() => {
-          screenFlash.style.opacity = '0';
-        }, 80);
-      }
-
-      function triggerClapperboard() {
-        playClapperSound();
-        triggerFlash();
-        clapModal.classList.add('open');
-      }
-
-      brandLogoBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        triggerClapperboard();
+      // Quick focus helper on top badge
+      document.getElementById('top-waitlist-pill').addEventListener('click', () => {
+        emailInput.focus();
       });
 
-      clapCloseBtn.addEventListener('click', () => {
-        playLensClick();
-        clapModal.classList.remove('open');
-      });
-
-      clapModal.addEventListener('click', (e) => {
-        if (e.target === clapModal) {
-          clapModal.classList.remove('open');
-        }
-      });
-
-      window.addEventListener('keydown', (e) => {
-        if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT') {
-          e.preventDefault();
-          triggerClapperboard();
-        }
-        if (e.key === 'Escape') {
-          clapModal.classList.remove('open');
-        }
-      });
-
-      // Interactive hover sounds for links
-      document.querySelectorAll('.social-link, .notify-btn, .countdown-tile').forEach(item => {
-        item.addEventListener('mouseenter', () => {
-          if (isAudioRunning) playLensClick();
-        });
-      });
-
-      // Quick toast on footer links
-      document.getElementById('link-trailer').addEventListener('click', (e) => {
-        e.preventDefault();
-        playLensClick();
-        triggerClapperboard();
-      });
-
-      document.getElementById('link-soundtrack').addEventListener('click', (e) => {
-        e.preventDefault();
-        if (!isAudioRunning) {
-          startAmbientDrone();
-        } else {
-          playCinematicBoom();
-        }
-      });
-
-      document.getElementById('link-contact').addEventListener('click', (e) => {
-        e.preventDefault();
-        playLensClick();
-        notifyEmail.focus();
+      // Logo hover sound
+      document.getElementById('logo-trigger').addEventListener('click', () => {
+        playChime();
       });
 
     })();
