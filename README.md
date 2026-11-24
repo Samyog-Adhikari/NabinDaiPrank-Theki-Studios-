@@ -1,20 +1,13 @@
 # Theki Productions — Coming Soon
 
-> **Official Waitlist & Teaser Landing Page for Theki Productions.**
+> **Official Waitlist & Booking Landing Page for Theki Productions.**
 
-Recreated based on the high-end dark glassmorphism design reference with 3D fluid light ribbons, incorporating the official **Theki Productions** wooden churner logo.
-
-## ✨ Features
-- **Official Brand Asset**: Directly integrates `logo.jpeg` (Nepali *Theki* with Devanagari *की* & *PRODUCTIONS*).
-- **Exact Reference Style**: 
-  - Framer-style dark obsidian aesthetic.
-  - 3D fluid glowing amber/orange ribbon dynamics rendered live on HTML5 canvas.
-  - Ultra-frosted glassmorphism card (`backdrop-filter: blur(45px)`).
-  - Floating `Waitlist` top pill badge.
-  - Clean `Join Waitlist` glowing white pill button and input field.
-  - Social media buttons: **X (Twitter)**, **Facebook**, **Instagram**.
-  - Giant hollow outline typography: **`Waitlist`** running along the bottom.
-- **Sound Design**: Toggleable ambient cinematic drone and chord chime synthesized via the Web Audio API (zero external audio files).
+Based on the dark Framer glassmorphism reference:
+- **Logo on the Background**: The official Theki Productions emblem (`logo.jpeg`) is layered in the background with ethereal amber ambient lighting, diffusing through the heavy frosted glass frontend.
+- **Glassified Frontend**: Heavy 50px backdrop blur, glossy white borders, inner bevels, and 3D fluid amber ribbons on canvas.
+- **Removed Social Icons**: Clean, focused interface with Facebook, Instagram, and Twitter icons removed.
+- **"Book Now" Integration**: Direct phone booking CTA redirecting to **`+977 9769407270`** (`tel:+9779769407270`).
+- **Sound Design**: Toggleable ambient cinematic drone and chord chime via Web Audio API.
 
 ## 🚀 Preview
 Open `index.html` in your browser:
