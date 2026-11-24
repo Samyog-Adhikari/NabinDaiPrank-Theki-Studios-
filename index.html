@@ -21,8 +21,8 @@
        ========================================================================== */
     :root {
       --bg-dark: #000000;
-      --glass-surface: rgba(255, 255, 255, 0.038);
-      --glass-surface-hover: rgba(255, 255, 255, 0.075);
+      --glass-surface: rgba(255, 255, 255, 0.04);
+      --glass-surface-hover: rgba(255, 255, 255, 0.08);
       --glass-border: rgba(255, 255, 255, 0.12);
       --glass-border-highlight: rgba(255, 255, 255, 0.35);
       --glass-inner-bevel: inset 0 1px 1px rgba(255, 255, 255, 0.28);
@@ -30,9 +30,10 @@
       
       --amber-glow: #ff7700;
       --whatsapp-green: #25d366;
+      --whatsapp-glow: rgba(37, 211, 102, 0.45);
       --text-white: #ffffff;
       --text-sub: #9ca3af;
-      --text-muted: #6b7280;
+      --text-muted: #71717a;
 
       --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       --font-mono: 'Space Grotesk', monospace;
@@ -56,11 +57,15 @@
       position: relative;
     }
 
+    /* Background canvas and overlays MUST have pointer-events: none */
+    #spotlight, #ribbon-canvas, .grain-layer, .bg-theki-container, #mo-container, #mo-container * {
+      pointer-events: none !important;
+    }
+
     /* Ambient dynamic spotlight following cursor */
     #spotlight {
       position: fixed;
       inset: 0;
-      pointer-events: none;
       z-index: 1;
       background: radial-gradient(circle 800px at var(--mouse-x, 50%) var(--mouse-y, 45%), rgba(255, 119, 0, 0.08), transparent 75%);
       transition: background 0.1s ease;
@@ -75,7 +80,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      pointer-events: none;
       z-index: 2;
       overflow: hidden;
     }
@@ -109,7 +113,6 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none;
       z-index: 3;
     }
 
@@ -119,7 +122,6 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none;
       z-index: 4;
       opacity: 0.035;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
@@ -129,7 +131,6 @@
     #mo-container {
       position: fixed;
       inset: 0;
-      pointer-events: none;
       z-index: 9999;
     }
 
@@ -156,7 +157,7 @@
       align-items: center;
     }
 
-    /* Frosted Top Pill Badge (Reference Style) */
+    /* Frosted Top Pill Badge */
     .glass-pill-badge {
       display: inline-flex;
       align-items: center;
@@ -277,7 +278,7 @@
       border: 1px solid var(--glass-border);
       border-top: 1px solid var(--glass-border-highlight);
       border-radius: 32px;
-      padding: 3.4rem 2.5rem 3rem;
+      padding: 3.2rem 2.4rem 2.8rem;
       box-shadow: var(--glass-shadow), var(--glass-inner-bevel);
       position: relative;
       overflow: hidden;
@@ -318,18 +319,17 @@
       color: var(--text-sub);
       font-weight: 400;
       max-width: 480px;
-      margin: 0 auto 2.2rem;
+      margin: 0 auto 2rem;
     }
 
     /* ==========================================================================
-       SEAMLESS REFERENCE FORM LAYOUT: [ MESSAGE INPUT ] + [ BOOK NOW ]
-       Direct WhatsApp integration to +977 9769407270 with Mo.js & GSAP
+       PERSONALIZED BUTTONS & WHATSAPP ACTION SUITE
        ========================================================================== */
-    .book-form-cluster {
+    .booking-suite-container {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1.2rem;
+      gap: 1.25rem;
       width: 100%;
       max-width: 520px;
       margin: 0 auto;
@@ -337,12 +337,64 @@
       z-index: 30;
     }
 
-    /* The exact single-row input + glowing button pill layout from reference.jpeg */
-    .book-input-row {
+    /* Topic Selection Label */
+    .preset-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      align-self: flex-start;
+      margin-left: 0.6rem;
+      margin-bottom: -0.4rem;
+    }
+
+    /* Service Category Buttons (Each with its Own Personalized Message) */
+    .service-buttons-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.55rem;
+      width: 100%;
+    }
+
+    .service-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      padding: 0.45rem 1rem;
+      font-family: var(--font-main);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #d4d4d8;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .service-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .service-btn.active {
+      background: rgba(37, 211, 102, 0.16);
+      border-color: rgba(37, 211, 102, 0.5);
+      color: #25d366;
+      box-shadow: 0 0 16px rgba(37, 211, 102, 0.25);
+    }
+
+    /* Single-Row Input + Contact on WhatsApp Button */
+    .action-input-row {
       width: 100%;
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 0.75rem;
       position: relative;
     }
 
@@ -351,10 +403,10 @@
       background: rgba(10, 10, 15, 0.65);
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 999px;
-      padding: 0.95rem 1.4rem;
+      padding: 0.95rem 1.35rem;
       color: #ffffff;
       font-family: var(--font-main);
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       outline: none;
       transition: all 0.25s ease;
       box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -370,15 +422,15 @@
       box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6), 0 0 20px rgba(37, 211, 102, 0.25);
     }
 
-    /* Native Anchor Tag for 100% Reliable Click Navigation */
-    .btn-book-now-pill {
+    /* Prominent "Contact on WhatsApp" Button */
+    .btn-contact-whatsapp {
       background: #ffffff;
       color: #050508;
       text-decoration: none;
       border: none;
       outline: none;
       border-radius: 999px;
-      padding: 0.95rem 1.9rem;
+      padding: 0.95rem 1.8rem;
       font-family: var(--font-main);
       font-size: 0.95rem;
       font-weight: 700;
@@ -396,59 +448,43 @@
       will-change: transform;
     }
 
-    .btn-book-now-pill:hover {
+    .btn-contact-whatsapp:hover {
       transform: translateY(-1px) scale(1.02);
       box-shadow: 0 0 40px rgba(255, 255, 255, 0.7), 0 6px 18px rgba(0, 0, 0, 0.6);
       color: #000000;
     }
 
-    .btn-book-now-pill:active {
+    .btn-contact-whatsapp:active {
       transform: scale(0.97);
     }
 
-    .whatsapp-badge-dot {
-      width: 9px;
-      height: 9px;
-      background: #25d366;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #25d366;
+    .whatsapp-badge-icon {
+      width: 18px;
+      height: 18px;
+      fill: #25d366;
       flex-shrink: 0;
+      transition: transform 0.2s ease;
     }
 
-    /* Quick Preset Tags (Subtle Glass Badges) */
-    .preset-tags-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.5rem;
+    .btn-contact-whatsapp:hover .whatsapp-badge-icon {
+      transform: scale(1.15) rotate(5deg);
+    }
+
+    /* Active Message Status Indicator */
+    .status-hint-bar {
       width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
     }
 
-    .tag-chip {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      border-radius: 999px;
-      padding: 0.35rem 0.85rem;
-      font-family: var(--font-main);
-      font-size: 0.78rem;
-      color: #a1a1aa;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      user-select: none;
-    }
-
-    .tag-chip:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.25);
-      color: #ffffff;
-      transform: translateY(-1px);
-    }
-
-    .tag-chip.active {
-      background: rgba(37, 211, 102, 0.14);
-      border-color: rgba(37, 211, 102, 0.45);
+    .status-destination {
       color: #25d366;
-      box-shadow: 0 0 12px rgba(37, 211, 102, 0.2);
+      font-weight: 600;
     }
 
     /* Direct Contact Line Box */
@@ -465,7 +501,7 @@
       border-radius: 999px;
       padding: 0.35rem 1rem;
       transition: all 0.2s ease;
-      margin-top: 0.4rem;
+      cursor: pointer;
     }
 
     .contact-details-box:hover {
@@ -528,17 +564,17 @@
        ========================================================================== */
     @media (max-width: 640px) {
       .ultra-glass-card {
-        padding: 2.4rem 1.4rem 2.2rem;
+        padding: 2.2rem 1.2rem 2rem;
         border-radius: 24px;
       }
-      .book-input-row {
+      .action-input-row {
         flex-direction: column;
         width: 100%;
       }
       .input-message-pill {
         width: 100%;
       }
-      .btn-book-now-pill {
+      .btn-contact-whatsapp {
         width: 100%;
         justify-content: center;
       }
@@ -570,8 +606,8 @@
 
     <!-- Top Header Navigation -->
     <header class="top-header">
-      <!-- Waitlist Pill Badge (Matching Reference) -->
-      <a href="https://wa.me/9779769407270" target="_blank" rel="noopener noreferrer" class="glass-pill-badge" id="top-pill">
+      <!-- Top Pill Badge (Clickable to open WhatsApp) -->
+      <a href="https://api.whatsapp.com/send?phone=9779769407270&text=Hello%20Theki%20Productions%2C%20I%20would%20like%20to%20inquire%20about%20your%20upcoming%20productions!" target="_blank" rel="noopener noreferrer" class="glass-pill-badge" id="top-pill">
         <span class="badge-sparkle">✦</span>
         <span>Theki Productions • WhatsApp Bookings</span>
       </a>
@@ -600,45 +636,97 @@
       <div class="ultra-glass-card" id="main-card">
         <h2 class="card-title">Book your production.</h2>
         <p class="card-subtitle">
-          Connect directly with our creative team on WhatsApp to reserve your production slot, discuss scripts, or get custom quotes.
+          Select your project type below or customize your message to chat directly with our creative team on WhatsApp.
         </p>
 
-        <!-- Reference Single-Row Form Layout: [ Message Input ] + [ Book Now Button ] -->
-        <div class="book-form-cluster">
+        <!-- Booking Suite -->
+        <div class="booking-suite-container">
           
-          <div class="book-input-row">
+          <!-- Category Buttons: Each button has its own tailored personalized message -->
+          <span class="preset-label">Choose your project:</span>
+          <div class="service-buttons-grid" role="group" aria-label="Select production type">
+            <button 
+              type="button" 
+              class="service-btn active" 
+              data-category="Commercial"
+              data-msg="Hello Theki Productions! I would like to book a Commercial Video production for my brand. Please share packages and dates."
+            >
+              <span>🎬</span> <span>Commercial</span>
+            </button>
+
+            <button 
+              type="button" 
+              class="service-btn" 
+              data-category="Photography"
+              data-msg="Hello Theki Productions! I want to schedule a professional Photography shoot. What are your available slots?"
+            >
+              <span>📸</span> <span>Photography</span>
+            </button>
+
+            <button 
+              type="button" 
+              class="service-btn" 
+              data-category="Music Video"
+              data-msg="Hello Theki Productions! I am looking to produce a high-end Music Video. Let's discuss creative concepts and budget!"
+            >
+              <span>🎵</span> <span>Music Video</span>
+            </button>
+
+            <button 
+              type="button" 
+              class="service-btn" 
+              data-category="Film & Cinema"
+              data-msg="Hello Theki Productions! I want to collaborate on a Cinematic Short Film / Documentary project."
+            >
+              <span>🎞️</span> <span>Cinema</span>
+            </button>
+
+            <button 
+              type="button" 
+              class="service-btn" 
+              data-category="Custom Project"
+              data-msg="Hello Theki Productions! I have a custom creative project in mind and would love to consult with your team."
+            >
+              <span>✨</span> <span>Custom</span>
+            </button>
+          </div>
+
+          <!-- Input + Contact on WhatsApp Action Row -->
+          <div class="action-input-row">
             <input 
               type="text" 
               class="input-message-pill" 
               id="message-input" 
-              value="Hello Theki Productions, I would like to book a production session!" 
+              value="Hello Theki Productions! I would like to book a Commercial Video production for my brand. Please share packages and dates." 
               placeholder="Type your WhatsApp message..." 
-              aria-label="WhatsApp Message to Theki Productions"
+              aria-label="Personalized WhatsApp Message"
             >
-            <!-- Native <a> tag for 100% reliable click & popup-blocker immune navigation -->
+            
+            <!-- Contact on WhatsApp Button -->
             <a 
-              href="https://wa.me/9779769407270?text=Hello%20Theki%20Productions%2C%20I%20would%20like%20to%20book%20a%20production%20session!" 
+              href="https://api.whatsapp.com/send?phone=9779769407270&text=Hello%20Theki%20Productions%21%20I%20would%20like%20to%20book%20a%20Commercial%20Video%20production%20for%20my%20brand.%20Please%20share%20packages%20and%20dates." 
               target="_blank" 
               rel="noopener noreferrer" 
-              class="btn-book-now-pill" 
-              id="btn-book-now"
+              class="btn-contact-whatsapp" 
+              id="btn-contact-whatsapp"
+              aria-label="Contact on WhatsApp"
             >
-              <span class="whatsapp-badge-dot" aria-hidden="true"></span>
-              <span>Book Now</span>
+              <svg class="whatsapp-badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+              </svg>
+              <span>Contact on WhatsApp</span>
             </a>
           </div>
 
-          <!-- Quick Topic Preset Tags -->
-          <div class="preset-tags-row">
-            <span class="tag-chip active" data-msg="Hello Theki Productions, I would like to book a commercial video production!">🎬 Commercial</span>
-            <span class="tag-chip" data-msg="Hello Theki Productions, I would like to book a photography session!">📸 Photography</span>
-            <span class="tag-chip" data-msg="Hello Theki Productions, I would like to book a music video shoot!">🎵 Music Video</span>
-            <span class="tag-chip" data-msg="Hello Theki Productions, I have a custom creative project inquiry!">✨ Custom</span>
+          <!-- Status bar showing target & active project -->
+          <div class="status-hint-bar">
+            <span>Direct to: <strong class="status-destination">+977 9769407270</strong></span>
+            <span id="active-project-label">Project: Commercial</span>
           </div>
 
-          <!-- Direct Line Display -->
-          <a href="https://wa.me/9779769407270" target="_blank" rel="noopener noreferrer" class="contact-details-box" title="WhatsApp Theki Productions directly">
-            <span>WhatsApp:</span>
+          <!-- Direct Line Badge -->
+          <a href="https://api.whatsapp.com/send?phone=9779769407270" target="_blank" rel="noopener noreferrer" class="contact-details-box" title="WhatsApp Theki Productions directly">
+            <span>Direct WhatsApp:</span>
             <span class="phone-highlight">+977 9769407270</span>
           </a>
 
@@ -654,143 +742,88 @@
 
     <!-- Minimalist Footer -->
     <footer class="bottom-footer">
-      <span>© 2026 Theki Productions • WhatsApp: <a href="https://wa.me/9779769407270" target="_blank" rel="noopener noreferrer">+977 9769407270</a></span>
+      <span>© 2026 Theki Productions • WhatsApp: <a href="https://api.whatsapp.com/send?phone=9779769407270" target="_blank" rel="noopener noreferrer">+977 9769407270</a></span>
     </footer>
 
   </div>
 
   <!-- ==========================================================================
        VANILLA JAVASCRIPT:
-       1. Dynamic Realtime WhatsApp Link Sync
-       2. Mo.js Particle Burst on Click
-       3. GSAP Animations & Parallax
-       4. 3D Glowing Amber Ribbons Canvas
-       5. Web Audio Ambient Sound Design
+       1. Reliable Realtime WhatsApp Link Generation
+       2. Service Button Personalization & Direct Triggers
+       3. Mo.js Particle Burst on Contact on WhatsApp Click
+       4. GSAP Parallax and Entrances
+       5. 3D Glowing Amber Ribbons Canvas
+       6. Web Audio Ambient Sound Design
        ========================================================================== */
   <script>
     (function() {
       'use strict';
 
-      const WHATSAPP_PHONE = '9779769407270';
+      const PHONE_NUMBER = '9779769407270';
       const messageInput = document.getElementById('message-input');
-      const bookBtn = document.getElementById('btn-book-now');
-      const tagChips = document.querySelectorAll('.tag-chip');
+      const contactBtn = document.getElementById('btn-contact-whatsapp');
+      const serviceButtons = document.querySelectorAll('.service-btn');
+      const activeProjectLabel = document.getElementById('active-project-label');
 
       /* ----------------------------------------------------------------------
-         1. DYNAMIC REALTIME LINK SYNCHRONIZATION
-         Updates the native href of #btn-book-now immediately as the user types
-         or clicks tags. This ensures clicking ALWAYS opens WhatsApp directly
-         without popup blockers!
+         1. DYNAMIC WHATSAPP LINK BUILDER
+         Uses https://api.whatsapp.com/send?phone=... which works reliably on
+         all platforms (WhatsApp Web, WhatsApp Desktop, Android, iOS)!
          ---------------------------------------------------------------------- */
-      function updateWhatsAppUrl() {
-        const rawText = messageInput.value.trim() || 'Hello Theki Productions, I would like to book a production session!';
-        const encoded = encodeURIComponent(rawText);
-        bookBtn.href = `https://wa.me/${WHATSAPP_PHONE}?text=${encoded}`;
+      function buildWhatsAppUrl(text) {
+        const message = text || messageInput.value.trim() || 'Hello Theki Productions, I would like to book a production session!';
+        return 'https://api.whatsapp.com/send?phone=' + PHONE_NUMBER + '&text=' + encodeURIComponent(message);
       }
 
-      messageInput.addEventListener('input', updateWhatsAppUrl);
+      function syncButtonHref() {
+        contactBtn.href = buildWhatsAppUrl();
+      }
 
-      // Tag chips selection
-      tagChips.forEach(chip => {
-        chip.addEventListener('click', () => {
-          tagChips.forEach(c => c.classList.remove('active'));
-          chip.classList.add('active');
+      // Update in real-time as user types
+      messageInput.addEventListener('input', syncButtonHref);
 
-          const newMsg = chip.getAttribute('data-msg');
-          messageInput.value = newMsg;
-          updateWhatsAppUrl();
+      /* ----------------------------------------------------------------------
+         2. SERVICE BUTTONS FUNCTIONALITY (EACH HAS ITS PERSONALIZED MESSAGE)
+         ---------------------------------------------------------------------- */
+      serviceButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          // Update active state
+          serviceButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
 
+          // Retrieve personalized message & category
+          const category = btn.getAttribute('data-category');
+          const personalizedMsg = btn.getAttribute('data-msg');
+
+          messageInput.value = personalizedMsg;
+          activeProjectLabel.textContent = 'Project: ' + category;
+          syncButtonHref();
+
+          // GSAP micro-feedback on message input
           if (window.gsap) {
             try {
               gsap.fromTo(messageInput, 
-                { opacity: 0.5, scale: 0.99 }, 
-                { opacity: 1, scale: 1, duration: 0.25, ease: 'power2.out' }
+                { opacity: 0.5, y: -3 }, 
+                { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' }
               );
-            } catch (e) {}
+            } catch (err) {}
           }
+
           playChime();
         });
       });
 
-      // Submit on Enter key inside the input
+      // Allow pressing Enter in the input to trigger WhatsApp
       messageInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
-          bookBtn.click();
+          contactBtn.click();
         }
       });
 
       /* ----------------------------------------------------------------------
-         2. GSAP ENTRANCE ANIMATION & MOUSE PARALLAX FOR GLASSIFIED "THEKI"
-         ---------------------------------------------------------------------- */
-      if (window.gsap) {
-        try {
-          gsap.from('#bg-theki-text', {
-            duration: 2.2,
-            opacity: 0,
-            scale: 0.85,
-            y: 60,
-            ease: 'power3.out'
-          });
-
-          gsap.from('#main-headline', {
-            duration: 1.5,
-            opacity: 0,
-            y: 30,
-            delay: 0.3,
-            ease: 'power3.out'
-          });
-
-          gsap.from('#main-card', {
-            duration: 1.6,
-            opacity: 0,
-            y: 40,
-            scale: 0.96,
-            delay: 0.5,
-            ease: 'power3.out'
-          });
-
-          // 3D Mouse Parallax on Background THEKI
-          const bgTheki = document.getElementById('bg-theki-text');
-          window.addEventListener('mousemove', (e) => {
-            const moveX = (e.clientX - window.innerWidth / 2) * 0.035;
-            const moveY = (e.clientY - window.innerHeight / 2) * 0.035;
-            
-            gsap.to(bgTheki, {
-              x: moveX,
-              y: moveY - (window.innerHeight * 0.08),
-              duration: 1.2,
-              ease: 'power2.out'
-            });
-          }, { passive: true });
-
-          // Magnetic GSAP Button effect
-          bookBtn.addEventListener('mousemove', (e) => {
-            const rect = bookBtn.getBoundingClientRect();
-            const relX = e.clientX - rect.left - rect.width / 2;
-            const relY = e.clientY - rect.top - rect.height / 2;
-
-            gsap.to(bookBtn, {
-              x: relX * 0.2,
-              y: relY * 0.2,
-              duration: 0.3,
-              ease: 'power2.out'
-            });
-          });
-
-          bookBtn.addEventListener('mouseleave', () => {
-            gsap.to(bookBtn, {
-              x: 0,
-              y: 0,
-              duration: 0.5,
-              ease: 'elastic.out(1, 0.4)'
-            });
-          });
-        } catch (e) {}
-      }
-
-      /* ----------------------------------------------------------------------
-         3. MO.JS PARTICLE BURST ANIMATION ON BOOK NOW CLICK
+         3. MO.JS PARTICLE BURST ANIMATION
          ---------------------------------------------------------------------- */
       let moBurst = null;
       let moSwirl = null;
@@ -825,10 +858,16 @@
         } catch (e) {}
       }
 
-      bookBtn.addEventListener('click', (e) => {
-        // Trigger Mo.js Burst animation safely
+      /* ----------------------------------------------------------------------
+         4. CONTACT ON WHATSAPP BUTTON CLICK HANDLER
+         ---------------------------------------------------------------------- */
+      contactBtn.addEventListener('click', (e) => {
+        // Ensure href is up to date with latest typed text
+        syncButtonHref();
+
+        // Trigger animations safely
         try {
-          const rect = bookBtn.getBoundingClientRect();
+          const rect = contactBtn.getBoundingClientRect();
           const burstX = rect.left + rect.width / 2;
           const burstY = rect.top + rect.height / 2;
 
@@ -839,19 +878,70 @@
 
           if (window.gsap) {
             gsap.timeline()
-              .to(bookBtn, { scale: 0.94, duration: 0.1, ease: 'power2.in' })
-              .to(bookBtn, { scale: 1, duration: 0.35, ease: 'elastic.out(1.2, 0.4)' });
+              .to(contactBtn, { scale: 0.94, duration: 0.1, ease: 'power2.in' })
+              .to(contactBtn, { scale: 1, duration: 0.35, ease: 'elastic.out(1.2, 0.4)' });
           }
 
           playChime();
-        } catch (err) {
-          // Failure in animations must NEVER block WhatsApp navigation
-        }
-        // Link click naturally navigates to bookBtn.href without popup blocker interference!
+        } catch (err) {}
+
+        // Direct fallback navigation in case browser blocks target="_blank"
+        const targetUrl = contactBtn.href;
+        setTimeout(() => {
+          // If the link did not open automatically in new tab, navigate
+          if (!window.open(targetUrl, '_blank')) {
+            window.location.href = targetUrl;
+          }
+        }, 100);
       });
 
       /* ----------------------------------------------------------------------
-         4. 3D GLOWING AMBER RIBBONS (CANVAS FLUID DYNAMICS)
+         5. GSAP ENTRANCES & PARALLAX
+         ---------------------------------------------------------------------- */
+      if (window.gsap) {
+        try {
+          gsap.from('#bg-theki-text', {
+            duration: 2.2,
+            opacity: 0,
+            scale: 0.85,
+            y: 60,
+            ease: 'power3.out'
+          });
+
+          gsap.from('#main-headline', {
+            duration: 1.5,
+            opacity: 0,
+            y: 30,
+            delay: 0.25,
+            ease: 'power3.out'
+          });
+
+          gsap.from('#main-card', {
+            duration: 1.6,
+            opacity: 0,
+            y: 40,
+            scale: 0.96,
+            delay: 0.45,
+            ease: 'power3.out'
+          });
+
+          const bgTheki = document.getElementById('bg-theki-text');
+          window.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.035;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.035;
+            
+            gsap.to(bgTheki, {
+              x: moveX,
+              y: moveY - (window.innerHeight * 0.08),
+              duration: 1.2,
+              ease: 'power2.out'
+            });
+          }, { passive: true });
+        } catch (e) {}
+      }
+
+      /* ----------------------------------------------------------------------
+         6. 3D GLOWING AMBER RIBBONS (CANVAS FLUID DYNAMICS)
          ---------------------------------------------------------------------- */
       const canvas = document.getElementById('ribbon-canvas');
       const ctx = canvas.getContext('2d');
@@ -936,7 +1026,7 @@
       renderRibbons();
 
       /* ----------------------------------------------------------------------
-         5. WEB AUDIO AMBIENT SOUND DESIGN
+         7. WEB AUDIO AMBIENT SOUND DESIGN
          ---------------------------------------------------------------------- */
       let audioCtx = null;
       let isPlaying = false;
